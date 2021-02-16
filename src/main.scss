@@ -10,10 +10,15 @@ body {
   #root {
     max-width: 190rem;
     margin: 0 auto;
-    box-sizing: border-box;
-    font-family: $fontBase;
+
     padding: 2rem 6rem;
   }
+}
+
+* {
+  box-sizing: border-box;
+  font-family: $fontBase;
+  margin: 0 auto;
 }
 
 a {

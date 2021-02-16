@@ -1,0 +1,21 @@
+.sing-in {
+  width: 45rem;
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .title {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
