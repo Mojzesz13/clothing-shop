@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import collection from '../components/pages/collection/collection';
 
 const config = {
   apiKey: 'AIzaSyAWyLJQpO0osUd1jn-7ts3LAbMVsnBCoEU',
@@ -41,7 +42,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
   const collectionRef = firestore.collection(collectionKey);
-  
+
   const batch = firestore.batch();
   objectToAdd.forEach((obj) => {
     const newDocRef = collectionRef.doc();
@@ -49,6 +50,24 @@ export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
   });
 
   return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collectionsSnapshot) => {
+  const transformedCollection = collectionsSnapshot.docs.map((docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: docSnapshot.id,
+      title,
+      items,
+    };
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 
 export const auth = firebase.auth();
